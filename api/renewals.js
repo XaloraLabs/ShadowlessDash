@@ -64,7 +64,7 @@ module.exports.load = async function (app, db) {
     await db.set("coins-" + req.session.userinfo.id, coins - cost);
 
     // Calculate the new renewal time
-    const newTime = currentRenewalEnd; // Start the new period from the end of the current period
+    const newTime = Date.now() + (settings.renewals.renew * 3600000); // Start the new period from the end of the current period
     await db.set(`lastrenewal-${req.query.id}`, newTime);
 
     // Unsuspend the server
